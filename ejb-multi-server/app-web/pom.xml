@@ -19,7 +19,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
+        <groupId>org.jboss.as.quickstarts</groupId>
         <artifactId>jboss-ejb-multi-server</artifactId>
         <version>8.0.0-SNAPSHOT</version>
     </parent>
@@ -44,8 +44,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-ejb-client-bom</artifactId>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -89,7 +89,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${war.plugin.version}</version>
+                <version>${version.war.plugin}</version>
                 <configuration>
           <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>

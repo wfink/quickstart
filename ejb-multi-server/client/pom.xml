@@ -33,7 +33,7 @@
     </licenses>
 
     <parent>
-        <groupId>org.jboss.quickstarts.eap</groupId>
+        <groupId>org.jboss.as.quickstarts</groupId>
         <artifactId>jboss-ejb-multi-server</artifactId>
         <version>8.0.0-SNAPSHOT</version>
     </parent>
@@ -69,7 +69,7 @@
 
     <!-- The client needs JBoss remoting to access the server -->
         <dependency>
-            <groupId>org.jboss.remoting3</groupId>
+            <groupId>org.jboss.remoting</groupId>
             <artifactId>jboss-remoting</artifactId>
             <scope>runtime</scope>
         </dependency>
@@ -99,7 +99,6 @@
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
-            <version>${version.jboss.ejb.client}</version>
         </dependency>
     </dependencies>
 
@@ -110,7 +109,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec.plugin.version}</version>
+                <version>${version.exec.plugin}</version>
                 <executions>
                     <execution>
                         <goals>
