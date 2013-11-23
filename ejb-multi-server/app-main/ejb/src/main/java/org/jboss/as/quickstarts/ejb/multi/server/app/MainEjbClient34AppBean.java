@@ -101,7 +101,7 @@ public class MainEjbClient34AppBean implements MainApp {
         ejbClientContextProps.put("remote.connections", connectionName);
         // add the properties to connect the app-one host 
         ejbClientContextProps.put("remote.connection." + connectionName + ".host", "localhost");
-        ejbClientContextProps.put("remote.connection." + connectionName + ".port", "4547");
+        ejbClientContextProps.put("remote.connection." + connectionName + ".port", "8180");
         ejbClientContextProps.put("remote.connection." + connectionName + ".username", "quickuser1");
         ejbClientContextProps.put("remote.connection." + connectionName + ".password", "quick123+");
         ejbClientContextProps.put("remote.clusters", "ejb");
@@ -182,7 +182,7 @@ public class MainEjbClient34AppBean implements MainApp {
         // add the properties to connect the app-one host
         ejbClientContextProps.put("remote.connections", connectionName);
         ejbClientContextProps.put("remote.connection." + connectionName + ".host", "localhost");
-        ejbClientContextProps.put("remote.connection." + connectionName + ".port", "4647");
+        ejbClientContextProps.put("remote.connection." + connectionName + ".port", "8280");
         ejbClientContextProps.put("remote.connection." + connectionName + ".username", "quickuser1");
         ejbClientContextProps.put("remote.connection." + connectionName + ".password", "quick123+");
         
@@ -194,7 +194,7 @@ public class MainEjbClient34AppBean implements MainApp {
 
         // change the necessary properties to call the other server
         ejbClientContextProps.put("endpoint.name", "appMain->appTwoB_endpoint");
-        ejbClientContextProps.put("remote.connection." + connectionName + ".port", "5247");
+        ejbClientContextProps.put("remote.connection." + connectionName + ".port", "8880");
         ejbClientContextProps.put("remote.connection." + connectionName + ".username", "quickuser2");
         ejbClientContextProps.put("remote.connection." + connectionName + ".password", "quick+123");
         Context iCtxB = null;
