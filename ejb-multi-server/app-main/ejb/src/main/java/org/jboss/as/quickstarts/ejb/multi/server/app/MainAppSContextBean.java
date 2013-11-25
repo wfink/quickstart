@@ -32,8 +32,8 @@ import org.jboss.logging.Logger;
  * <p>
  * An example how to use the new features 'scoped client' introduced with
  * EJBCLIENT-34 in AS7.2.0 or EAP6.1.<br/>
- * If a server without that feature is used the outbound-connection will be used
- * and the behavior is different.
+ * If this feature is used the outbound-connection of the remoting subsystem
+ * will not be used and the behavior is different.
  * </p>
  * <p>
  * The functionality will be the same as MainAppBean provide, the interface
@@ -45,8 +45,8 @@ import org.jboss.logging.Logger;
  * @author <a href="mailto:wfink@redhat.com">Wolf-Dieter Fink</a>
  */
 @Stateless
-public class MainEjbClient34AppBean implements MainApp {
-    private static final Logger LOGGER = Logger.getLogger(MainEjbClient34AppBean.class);
+public class MainAppSContextBean implements MainApp {
+    private static final Logger LOGGER = Logger.getLogger(MainAppSContextBean.class);
     @Resource
     SessionContext context;
 
@@ -59,7 +59,7 @@ public class MainEjbClient34AppBean implements MainApp {
     public String invokeAll(String text) {
         Principal caller = context.getCallerPrincipal();
         LOGGER.info("[" + caller.getName() + "] " + text);
-        final StringBuilder result = new StringBuilder("MainEjbClient34App["+ caller.getName() + "]@" + getJBossNodeName());
+        final StringBuilder result = new StringBuilder("MainAppSContext["+ caller.getName() + "]@" + getJBossNodeName());
         // Call AppOne with the direct ejb: naming
         try {
             result.append("  >  [ " + invokeAppOne(text));

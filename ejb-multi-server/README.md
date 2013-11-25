@@ -138,7 +138,7 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
 
 4. To invoke the bean that uses the `scoped-client-context`, you must pass a property. Type the following command
 
-        mvn exec:java -DUseEjbClient34=true
+        mvn exec:java -DUseScopedContext=true
     
     The invocation of `appTwo` throws a  `java.lang.reflect.InvocationTargetException` since the secured method is called and there is no Role for the user defined.  You get a `BUILD FAILURE` and the client outputs the following information:
 
@@ -152,9 +152,9 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
     If the connection was established before changing the roles it might be necessary to restart the main server, or even the whole domain.
     After that the invocation will be successful. The log output of the `appTwo` servers shows which Role is applied to the user. The output of the client will show you a simple line with the information provided by the different applications:
         
-          InvokeAll succeed: MainEjbClient34App[anonymous]@master:app-main  >  [ {app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA} >  appTwo loop(7 time A-B expected){app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB} ]
+          InvokeAll succeed: MainAppSContext[anonymous]@master:app-main  >  [ {app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser1]@master:app-oneA, app1[quickuser2]@master:app-oneB, app1[quickuser1]@master:app-oneA} >  appTwo loop(7 time A-B expected){app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB, app2[quickuser1]@master:app-twoA, app2[quickuser2]@master:app-twoB} ]
          
-    The line shows that the bean `MainEjbClient34App` is not secured and called at `app-main` server. The sub-calls to `app-one#` are using the scoped-context and the cluster view needs a time to be established. This is shown as the cluster-view call the `appOne` with the user `quickuser2`. `AppTwo` is called with two different scoped-context settings. Both are used alternately 7 times.
+    The line shows that the bean `MainAppSContext` is not secured and called at `app-main` server. The sub-calls to `app-one#` are using the scoped-context and the cluster view needs a time to be established. This is shown as the cluster-view call the `appOne` with the user `quickuser2`. `AppTwo` is called with two different scoped-context settings. Both are used alternately 7 times.
 
 5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace $WILDFLY_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
@@ -178,7 +178,7 @@ The JSF example shows different annotations to inject the EJB. Also how to handl
 
 _NOTE :_
 
-* _If you try to invoke `MainEjbClient34App` you need to update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`._
+* _If you try to invoke `MainAppSContext` you need to update the user `quickuser1` and `quickuser2` and give them one of the Roles `AppTwo` or `Intern`._
 
 Access the Servlet application deployed as a WAR inside a minimal server
 ---------------------
