@@ -4,9 +4,9 @@ Author: Wolf-Dieter Fink
 Level: Advanced  
 Technologies: EJB, EAR  
 Summary: EJB applications deployed to different servers that communicate via EJB remote calls  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+Target Product: WildFly
+Product Versions: 8.0.0
+Source: <https://github.com/wildfly/quickstart/>  
 
 
 What is it?
@@ -63,34 +63,34 @@ Add the users using the following commands:
 If you prefer, you can use the add-user utility interactively. For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](../README.md#addapplicationuser).
 
 
-Back Up the JBoss EAP Server Configuration Files
+Back Up the JBoss Server Configuration Files
 -----------------------------
 _NOTE - Before you begin:_
 
-1. If it is running, stop the JBoss EAP server.
-2. Backup the following files, replacing JBOSS_HOME with the path to your server: 
+1. If it is running, stop the WildFly server.
+2. Backup the following files, replacing WILDFLY_HOME with the path to your server: 
 
-        JBOSS_HOME/domain/configuration/domain.xml
-        JBOSS_HOME/domain/configuration/host.xml
+        WILDFLY_HOME/domain/configuration/domain.xml
+        WILDFLY_HOME/domain/configuration/host.xml
         
 3. After you have completed testing and undeployed this quickstart, you can replace these files to restore the server to its original configuration.
 
 
-Start JBoss EAP Server
+Start JBoss Server
 ---------------------------
 
 
-1. Unzip or install a fresh JBoss EAP instance.
+1. Unzip or install a fresh JBoss instance.
 2. Open a command line and navigate to the root of the server directory. Start the server using the following command:
 
         bin/domain.sh    
 
-Configure the JBoss EAP Server
+Configure the JBoss Server
 ---------------------------
 
    Open a new command line, navigate to the root directory of this quickstart, and run the following command:
  
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
+        WILDFLY_HOME/bin/jboss-cli.sh --connect --file=install-domain.cli
         
    This script configures and starts multiple servers needed to run this quickstart. You should see "outcome" => "success" for all of the commands. 
 
@@ -108,7 +108,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
         
 4. Open a new command line and navigate to the root directory of this quickstart. Deploy the applications using the provided CLI batch script by typing the following command:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
+        WILDFLY_HOME/bin/jboss-cli.sh --connect --file=deploy-domain.cli
        
     This will deploy the app-*.ear files to different server-groups of the running domain.
 
@@ -156,15 +156,14 @@ It also demonstrates how to invoke an EJB from a client using a scoped-context r
          
     The line shows that the bean `MainEjbClient34App` is not secured and called at `app-main` server. The sub-calls to `app-one#` are using the scoped-context and the cluster view needs a time to be established. This is shown as the cluster-view call the `appOne` with the user `quickuser2`. `AppTwo` is called with two different scoped-context settings. Both are used alternately 7 times.
 
-5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace $JBOSS_HOME with your current installation path. The output should be similar to the previous mvn executions.
+5. If it is necessary to invoke the client with a different JBoss version the main class can be invoked by using the following command from the root directory of this quickstart. Replace $WILDFLY_HOME with your current installation path. The output should be similar to the previous mvn executions.
 
-      java -cp $JBOSS_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
+      java -cp $WILDFLY_HOME/bin/client/jboss-client.jar:app-main/ejb/target/jboss-ejb-multi-server-app-main-ejb-client.jar:app-two/ejb/target/jboss-ejb-multi-server-app-two-ejb-client.jar:client/target/jboss-ejb-multi-server-client.jar org.jboss.as.quickstarts.ejb.multi.server.Client
 
 
 _NOTE:_
  
 * _If exec is called multiple times, the invocation for `app1` might use `app-oneA` and `app-oneB` node due to cluster loadbalancing._
-* _A new feature introduced in JBoss EAP 6.1 or later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation. See the install-domain.cli script._
 
 
 Access the JSF application inside the main-application
@@ -190,7 +189,6 @@ An example how to access EJB's from a separate instance which only contains a we
 2. Use a browser to access the Servlet at the following URL: <http://localhost:8380/jboss-ejb-multi-server-app-web/>
 3. The Servlet will invoke the remote EJBs directly and show the results, compare that the invocation is successful
 
-_NOTE : A new feature in EAP 6.1 or later will deny the invocation of unsecured methods of `appOne`/`appTwo` since security is enabled but the method does not include @Roles. You need to set 'default-missing-method-permissions-deny-access = false' for the `ejb3` subsystem within the domain profile "ha" and "default" to allow the method invocation.  See the install-domain.cli script._
 
 
 Undeploy the Archives
@@ -200,7 +198,7 @@ Undeploy the Archives
 2. Open a command line and navigate to the root directory of this quickstart.
 3. When you are finished testing, type this command to undeploy the archive:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
+        WILDFLY_HOME/bin/jboss-cli.sh --connect --file=undeploy-domain.cli
 
 
 Remove the Server Domain Configuration
@@ -209,20 +207,20 @@ Remove the Server Domain Configuration
 You can remove the domain configuration by manually restoring the back-up copies the configuration files or by running the JBoss CLI Script. 
 
 ### Remove the Server Domain Configuration Manually           
-1. If it is running, stop the JBoss EAP server.
-2. Restore the `JBOSS_HOME/domain/configuration/domain.xml` and `JBOSS_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace JBOSS_HOME with the path to your server.
+1. If it is running, stop the WildFly server.
+2. Restore the `WILDFLY_HOME/domain/configuration/domain.xml` and `WILDFLY_HOME/domain/configuration/host.xml` files with the back-up copies of the files. Be sure to replace WILDFLY_HOME with the path to your server.
 
 ### Remove the Security Domain Configuration by Running the JBoss CLI Script
 
 _Note: This script returns the server to a default configuration and the result may not match the server configuration prior to testing this quickstart. If you were not running with the default configuration before testing this quickstart, you should follow the intructions above to manually restore the configuration to its previous state._
 
-1. Start the JBoss EAP server by typing the following: 
+1. Start the WildFly server by typing the following: 
 
-        For Linux:   JBOSS_HOME/bin/domain.sh
-        For Windows: JBOSS_HOME\bin\domain.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server.
+        For Linux:   WILDFLY_HOME/bin/domain.sh
+        For Windows: WILDFLY_HOME\bin\domain.bat
+2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing WILDFLY_HOME with the path to your server.
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
+        WILDFLY_HOME/bin/jboss-cli.sh --connect --file=remove-configuration.cli 
 This script removes the server configuration that was done by the `install-domain.cli` script. You should see the following result following the script commands:
 
         The batch executed successfully.
