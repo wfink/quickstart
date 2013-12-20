@@ -56,6 +56,10 @@
             <version>${project.version}</version>
             <type>ejb-client</type>
         </dependency>
+        <dependency>
+          <groupId>javax.enterprise</groupId>
+          <artifactId>cdi-api</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

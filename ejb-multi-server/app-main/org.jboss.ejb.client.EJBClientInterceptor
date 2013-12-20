@@ -1,0 +1,8 @@
+# Use the Java ServiceLoader to add client side Interceptor
+# see 
+#   https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Development_Guide/Use_a_Client_Side_Interceptor_in_an_Application.html
+#   http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html
+#
+# All Interceptors must be added by full qualified class names
+# the order of invocation will be the same as they are added here. 
+org.jboss.as.quickstarts.ejb.multi.server.app.ClientInterceptor2
