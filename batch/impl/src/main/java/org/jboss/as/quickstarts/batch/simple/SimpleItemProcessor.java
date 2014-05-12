@@ -25,20 +25,23 @@ package org.jboss.as.quickstarts.batch.simple;
 import javax.batch.api.chunk.ItemProcessor;
 import javax.inject.Named;
 
+import org.jboss.logging.Logger;
+
 /**
  * The item processor is to exact handle one Item read by the ItemReader.
  * 
  * @author Wolf-Dieter Fink
  */
-@Named
 public class SimpleItemProcessor implements ItemProcessor {
-
+    private static final Logger LOG = Logger.getLogger(SimpleItemProcessor.class);
+    
     /**
      * Transform the object read by the ItemReader to an Object which will be handled by ItemWriter.
      * Here we simple copy the String.
      */
     @Override
     public Object processItem(Object readedItem) throws Exception {
+        LOG.info("process item : " + readedItem);
         return readedItem;
     }
 

@@ -21,8 +21,17 @@
  -->
 <job id="simpleJob" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
     <step id="aSimpleFirstStep" >
-        <chunk item-count="3">
-            <reader ref="simpleItemReader"/>
+        <properties>
+        	<!-- set a job wide property -->
+            <property name="noOfItemsToGenerate" value="10" />
+        </properties>
+        <chunk>
+            <reader ref="simpleItemReader">
+                <properties>
+                	<!-- set the reader properites and use the named job property, if no job property is set it default to 12  -->
+                    <property name="noOfItems" value="#{jobProperties['noOfItemsToGenerate']}?:12" />
+                </properties>
+            </reader>
             <processor ref="simpleItemProcessor"/>
             <writer ref="simpleItemWriter"/>
         </chunk>	

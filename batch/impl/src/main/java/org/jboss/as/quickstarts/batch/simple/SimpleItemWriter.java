@@ -33,7 +33,6 @@ import org.jboss.logging.Logger;
  * @author "Wolf-Dieter Fink"
  *
  */
-@Named
 public class SimpleItemWriter extends AbstractItemWriter {
     private static final Logger LOG = Logger.getLogger(SimpleItemWriter.class);
 
@@ -42,7 +41,6 @@ public class SimpleItemWriter extends AbstractItemWriter {
      */
     @Override
     public void writeItems(List<Object> items) throws Exception {
-        LOG.info("Write #"+items.size()+" items : " + items);
+        LOG.info("Write "+items.size()+" items : " + items);
     }
-
 }

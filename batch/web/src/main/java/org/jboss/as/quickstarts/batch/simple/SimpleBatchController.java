@@ -55,6 +55,7 @@ public class SimpleBatchController {
         // get the global operator for batch
         JobOperator operator = BatchRuntime.getJobOperator();
         
-        long jobId = operator.start("simpleJob", null);
+        long jobId = operator.start("simpleJob", this.job.getJobProperties());
+        this.job.setJobId(String.valueOf(jobId));
     }
 }

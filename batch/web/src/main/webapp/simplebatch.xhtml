@@ -31,21 +31,27 @@
 
     <h1>Simple batch start</h1>
     <div id="container">
-        <h:form id="response">
-            <h:panelGrid columns="2">
-                <h:outputLabel>Batch jobId:  </h:outputLabel>
-                <h:outputLabel value="#{job.jobId}" />
-            </h:panelGrid>
-        </h:form>
         <br /> <br />
         <h:form id="invokeForm">
             <h:panelGrid columns="3">
                 <h:outputLabel>Text:</h:outputLabel>
                 <h:inputText value="#{job.text}" />
+                <br/>
                 <h:commandButton id="clear" value="ClearForm" action="#{simpleBatchController.initForm()}" />
+            </h:panelGrid>
+            <h:panelGrid columns="2">
+                <h:outputLabel>No. of Items:</h:outputLabel>
+                <h:inputText value="#{job.itemCount}" />
             </h:panelGrid>
             <h:panelGrid columns="1">
                 <h:commandButton id="simpleBatchStart" value="Start the simple batch" action="#{simpleBatchController.startSimpleBatch()}" />
+            </h:panelGrid>
+        </h:form>
+        <br /> <br />
+        <h:form id="response">
+            <h:panelGrid columns="2">
+                <h:outputLabel>Batch jobId:  </h:outputLabel>
+                <h:outputLabel value="#{job.jobId}" />
             </h:panelGrid>
         </h:form>
     </div>

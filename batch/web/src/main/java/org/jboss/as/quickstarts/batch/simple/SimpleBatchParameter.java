@@ -16,6 +16,8 @@
  */
 package org.jboss.as.quickstarts.batch.simple;
 
+import java.util.Properties;
+
 /**
  * A container for the result of an EJB invocation. It will be used by the JsfController.
  * 
@@ -24,6 +26,7 @@ package org.jboss.as.quickstarts.batch.simple;
 public class SimpleBatchParameter {
 
     private String text;
+    private long itemCount;
     private String jobId;
 
     public String getText() {
@@ -34,11 +37,31 @@ public class SimpleBatchParameter {
         this.text = text;
     }
 
+    /**
+     * @return the itemCount
+     */
+    public long getItemCount() {
+        return itemCount;
+    }
+
+    /**
+     * @param itemCount the itemCount to set
+     */
+    public void setItemCount(long itemCount) {
+        this.itemCount = itemCount;
+    }
+
     public String getJobId() {
         return jobId;
     }
 
     void setJobId(String jobId) {
         this.jobId = jobId;
+    }
+    
+    Properties getJobProperties() {
+        Properties p = new Properties();
+        p.put("noOfItems", String.valueOf(getItemCount()));
+        return p;
     }
 }
