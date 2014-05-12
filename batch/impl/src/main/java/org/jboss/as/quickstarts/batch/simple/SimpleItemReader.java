@@ -24,8 +24,11 @@ package org.jboss.as.quickstarts.batch.simple;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Properties;
 
+import javax.batch.api.BatchProperty;
 import javax.batch.api.chunk.AbstractItemReader;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.jboss.logging.Logger;
@@ -37,37 +40,42 @@ import org.jboss.logging.Logger;
  * @author "Wolf-Dieter Fink"
  *
  */
-@Named
 public class SimpleItemReader extends AbstractItemReader {
     private final Logger LOG = Logger.getLogger(SimpleItemReader.class);
     private final ArrayList<String> items = new ArrayList<String>();
     private int itemCount = 0;
     
-   
+    @Inject @BatchProperty(name = "noOfItems")
+    String noOfItems;
+
+    /**
+     * Initialize the chunk reading
+     */
     @Override
     public void open(Serializable checkpoint) throws Exception {
-        LOG.info("Initialize");
+        LOG.info("Initialize with noOfItems " + noOfItems);
+        int itemsSize = Integer.parseInt(noOfItems);
         if(items.isEmpty()) {
-            for (int i = 1; i != 10; i++) {
+            for (int i = 1; i <= itemsSize; i++) {
                 items.add("Item #"+i);
             }
         }
     }
 
 
-    /* (non-Javadoc)
-     * @see javax.batch.api.chunk.AbstractItemReader#readItem()
+    /**
+     * read one item for processing
      */
     @Override
     public Object readItem() throws Exception {
-        LOG.info("read item#"+itemCount);
+        LOG.info("read item#" + (itemCount+1));
         if(itemCount < items.size()) {
             String item = items.get(itemCount);
             itemCount++;
             return item;
         }else{
+            // no more items, job will end
             return null;
         }
     }
-
 }
