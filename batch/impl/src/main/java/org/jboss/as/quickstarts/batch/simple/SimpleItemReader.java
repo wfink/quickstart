@@ -24,29 +24,35 @@ package org.jboss.as.quickstarts.batch.simple;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import javax.batch.api.BatchProperty;
 import javax.batch.api.chunk.AbstractItemReader;
+import javax.batch.runtime.context.JobContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
 /**
- * This simple example use the @link{AbstractItemRead} to have a default implementation
- * for not used methods.
+ * This simple example use the @link{AbstractItemRead} to have a default implementation for not used methods.
  * 
  * @author "Wolf-Dieter Fink"
- *
+ * 
  */
 public class SimpleItemReader extends AbstractItemReader {
     private final Logger LOG = Logger.getLogger(SimpleItemReader.class);
     private final ArrayList<String> items = new ArrayList<String>();
     private int itemCount = 0;
-    
-    @Inject @BatchProperty(name = "noOfItems")
+
+    @Inject
+    @BatchProperty(name = "noOfItems")
     String noOfItems;
+
+    @Inject
+    @BatchProperty(name = "WolfTest")
+    String test;
+
+    @Inject
+    JobContext jobContext;
 
     /**
      * Initialize the chunk reading
@@ -54,26 +60,27 @@ public class SimpleItemReader extends AbstractItemReader {
     @Override
     public void open(Serializable checkpoint) throws Exception {
         LOG.info("Initialize with noOfItems " + noOfItems);
+        LOG.info("JobContext.properties  " + jobContext.getProperties()); // TODO Empty why????
+        LOG.info("test property " + test);
         int itemsSize = Integer.parseInt(noOfItems);
-        if(items.isEmpty()) {
+        if (items.isEmpty()) {
             for (int i = 1; i <= itemsSize; i++) {
-                items.add("Item #"+i);
+                items.add("Item #" + i);
             }
         }
     }
-
 
     /**
      * read one item for processing
      */
     @Override
     public Object readItem() throws Exception {
-        LOG.info("read item#" + (itemCount+1));
-        if(itemCount < items.size()) {
+        LOG.info("read item#" + (itemCount + 1));
+        if (itemCount < items.size()) {
             String item = items.get(itemCount);
             itemCount++;
             return item;
-        }else{
+        } else {
             // no more items, job will end
             return null;
         }

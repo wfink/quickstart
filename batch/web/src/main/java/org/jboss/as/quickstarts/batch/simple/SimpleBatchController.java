@@ -32,7 +32,7 @@ import org.jboss.logging.Logger;
  */
 @Model
 public class SimpleBatchController {
-    private static final Logger LOOGER = Logger.getLogger(SimpleBatchController.class);
+    private static final Logger LOG = Logger.getLogger(SimpleBatchController.class);
     private SimpleBatchParameter job;
 
   /**
@@ -50,11 +50,12 @@ public class SimpleBatchController {
     }
 
     public void startSimpleBatch() {
-        LOOGER.info("Try to start the 'simpleJob'");
+        LOG.info("Try to start the 'simpleJob'");
         
         // get the global operator for batch
         JobOperator operator = BatchRuntime.getJobOperator();
         
+        LOG.info("XX" + this.job.getJobProperties());
         long jobId = operator.start("simpleJob", this.job.getJobProperties());
         this.job.setJobId(String.valueOf(jobId));
     }

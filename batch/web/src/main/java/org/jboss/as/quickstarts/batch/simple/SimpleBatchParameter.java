@@ -62,6 +62,7 @@ public class SimpleBatchParameter {
     Properties getJobProperties() {
         Properties p = new Properties();
         p.put("noOfItems", String.valueOf(getItemCount()));
+        p.put("WolfTest", "Einfach nur ein test");
         return p;
     }
 }
