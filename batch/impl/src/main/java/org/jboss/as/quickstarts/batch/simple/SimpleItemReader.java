@@ -43,13 +43,26 @@ public class SimpleItemReader extends AbstractItemReader {
     private final ArrayList<String> items = new ArrayList<String>();
     private int itemCount = 0;
 
+    /**
+     * Control the number of Items from the job and reader properties
+     */
     @Inject
     @BatchProperty(name = "noOfItems")
     String noOfItems;
 
+    /**
+     * Override number of items by JobOperator start properties.
+     */
     @Inject
-    @BatchProperty(name = "WolfTest")
-    String test;
+    @BatchProperty(name = "noOfItemsFromStart")
+    String noOfItemsFromStart;
+
+    /**
+     * Only to show how a system property is injected
+     */
+    @Inject
+    @BatchProperty(name = "javaVersion")
+    String javaVersion;
 
     @Inject
     JobContext jobContext;
@@ -59,14 +72,22 @@ public class SimpleItemReader extends AbstractItemReader {
      */
     @Override
     public void open(Serializable checkpoint) throws Exception {
-        LOG.info("Initialize with noOfItems " + noOfItems);
+        LOG.info("From system property 'java.version' we run on " + javaVersion);
+        LOG.info("Initialize with noOfItems:" + noOfItems + " noOfItemsFromStart:" + noOfItemsFromStart);
         LOG.info("JobContext.properties  " + jobContext.getProperties()); // TODO Empty why????
-        LOG.info("test property " + test);
+        
+        // prefer the item count which is given from the job start
         int itemsSize = Integer.parseInt(noOfItems);
-        if (items.isEmpty()) {
-            for (int i = 1; i <= itemsSize; i++) {
-                items.add("Item #" + i);
+        if(noOfItemsFromStart != null) {
+            int items = Integer.parseInt(noOfItemsFromStart);
+            if(items > 0) {
+                itemsSize = items;
             }
+        }
+        
+        // create the list of items
+        for (int i = 1; i <= itemsSize; i++) {
+            items.add("Item #" + i);
         }
     }
 
@@ -75,12 +96,13 @@ public class SimpleItemReader extends AbstractItemReader {
      */
     @Override
     public Object readItem() throws Exception {
-        LOG.info("read item#" + (itemCount + 1));
         if (itemCount < items.size()) {
+            LOG.info("read item#" + (itemCount + 1));
             String item = items.get(itemCount);
             itemCount++;
             return item;
         } else {
+            LOG.info("no more items");
             // no more items, job will end
             return null;
         }

@@ -34,14 +34,10 @@
         <br /> <br />
         <h:form id="invokeForm">
             <h:panelGrid columns="3">
-                <h:outputLabel>Text:</h:outputLabel>
-                <h:inputText value="#{job.text}" />
-                <br/>
-                <h:commandButton id="clear" value="ClearForm" action="#{simpleBatchController.initForm()}" />
-            </h:panelGrid>
-            <h:panelGrid columns="2">
                 <h:outputLabel>No. of Items:</h:outputLabel>
                 <h:inputText value="#{job.itemCount}" />
+                <h:commandButton id="clear" value="ClearForm" action="#{simpleBatchController.initForm()}" />
+                <br/>
             </h:panelGrid>
             <h:panelGrid columns="1">
                 <h:commandButton id="simpleBatchStart" value="Start the simple batch" action="#{simpleBatchController.startSimpleBatch()}" />

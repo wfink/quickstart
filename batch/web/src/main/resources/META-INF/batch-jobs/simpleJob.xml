@@ -30,6 +30,9 @@
                 <properties>
                 	<!-- set the reader properites and use the named job property, if no job property is set it default to 12  -->
                     <property name="noOfItems" value="#{jobProperties['noOfItemsToGenerate']}?:12" />
+                    <!-- set the reader properties and use the properties given with the programmatic job start -->
+                    <property name="noOfItemsFromStart" value="#{jobParameters['noOfItems']}?:0" />
+                    <property name="javaVersion" value="#{systemProperties['java.version']}"/>
                 </properties>
             </reader>
             <processor ref="simpleItemProcessor"/>

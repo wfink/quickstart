@@ -59,10 +59,14 @@ public class SimpleBatchParameter {
         this.jobId = jobId;
     }
     
+    /**
+     * Return the settings from the start page
+     * @return list with properties for the job
+     * <ul><li>noOfItems</li></ul>
+     */
     Properties getJobProperties() {
         Properties p = new Properties();
         p.put("noOfItems", String.valueOf(getItemCount()));
-        p.put("WolfTest", "Einfach nur ein test");
         return p;
     }
 }
