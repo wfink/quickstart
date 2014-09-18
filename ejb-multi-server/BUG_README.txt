@@ -8,8 +8,8 @@ run:
 
 from the project
     mvn clean install
-    $JBOSS_HOME/bin/jboss-cli.sh -c --file=install-domain.sh
-    $JBOSS_HOME/bin/jboss-cli.sh -c --file=deploy-domain.sh
+    $JBOSS_HOME/bin/jboss-cli.sh -c --file=install-domain.cli
+    $JBOSS_HOME/bin/jboss-cli.sh -c --file=deploy-domain.cli
     cd client
     mvn exec:java [-DUseScopedContext=true]  // SC is not necessary
     ==> result within server log; show that ClientInterceptor1 is invoked
